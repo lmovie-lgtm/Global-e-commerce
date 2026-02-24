@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Marketplace - Connect All Gadgets</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-globe"></i>
+            <span>Global Marketplace</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="#" class="nav-link" data-view="customer">Customer</a></li>
+            <li><a href="#" class="nav-link" data-view="admin">Admin</a></li>
+        </ul>
+        <div class="signal-indicator">
+            <div class="signal-bars">
+                <div class="signal-bar"></div>
+                <div class="signal-bar"></div>
+                <div class="signal-bar"></div>
+                <div class="signal-bar"></div>
+            </div>
+            <span>Connected</span>
+        </div>
+    </nav>
+
+    <!-- Customer View -->
+    <div id="customerView">
+        <div class="container">
+            <!-- Referral Banner -->
+            <div class="referral-banner">
+                <h2>🌟 Welcome to Global Marketplace</h2>
+                <p>Referred by: <strong>Adegan Global</strong> | Your trusted source for products worldwide</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">🌍 Connecting you to Amazon, eBay, Alibaba, and 50+ global e-commerce platforms</p>
+            </div>
+
+            <!-- Search and Filter -->
+            <div style="margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <input type="text" id="searchInput" class="form-control" placeholder="🔍 Search products, categories, or stores..." style="flex: 1;">
+                <select id="categoryFilter" class="form-control" style="width: auto;">
+                    <option value="">All Categories</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Home & Garden">Home & Garden</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Books">Books</option>
+                    <option value="Toys">Toys</option>
+                    <option value="Beauty">Beauty</option>
+                    <option value="Automotive">Automotive</option>
+                </select>
+                <select id="sourceFilter" class="form-control" style="width: auto;">
+                    <option value="">All Stores</option>
+                    <option value="Amazon">Amazon</option>
+                    <option value="eBay">eBay</option>
+                    <option value="Alibaba">Alibaba</option>
+                    <option value="Walmart">Walmart</option>
+                    <option value="Best Buy">Best Buy</option>
+                    <option value="Target">Target</option>
+                    <option value="AliExpress">AliExpress</option>
+                    <option value="Etsy">Etsy</option>
+                    <option value="Newegg">Newegg</option>
+                    <option value="Overstock">Overstock</option>
+                </select>
+                <button class="btn btn-primary" onclick="openModal('cartModal')">
+                    🛒 Cart (<span id="cartCount">0</span>)
+                </button>
+            </div>
+
+            <!-- Sync Status -->
+            <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <strong>🔄 Auto-Sync Active</strong>
+                    <p style="color: #6b7280; font-size: 0.9rem;">Syncing products from Amazon, eBay, Alibaba, Walmart, Best Buy, Target, AliExpress, Etsy, Newegg, Overstock...</p>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <div class="spinner" style="width: 30px; height: 30px; margin: 0;"></div>
+                    <span style="color: #10b981; font-weight: 500;">● Live</span>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="productGrid" class="product-grid">
+                <!-- Products will be loaded here -->
+            </div>
+
+            <!-- Footer -->
+            <footer style="margin-top: 4rem; padding: 2rem; background: var(--dark-bg); color: var(--white); text-align: center; border-radius: 12px;">
+                <h3>Global Marketplace</h3>
+                <p style="margin-top: 0.5rem; color: #9ca3af;">Owner: Olawale Abdul</p>
+                <p style="margin-top: 0.5rem; color: #9ca3af;">Referral Partner: Adegan Global</p>
+                <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <span>🔒 Secure Payments</span>
+                    <span>🌍 Global Shipping</span>
+                    <span>💳 Multiple Payment Options</span>
+                    <span>📦 Fast Delivery</span>
+                </div>
+                <p style="margin-top: 1.5rem; color: #6b7280; font-size: 0.85rem;">© 2024 Global Marketplace. All rights reserved.</p>
+            </footer>
+        </div>
+
+        <!-- Cart Modal -->
+        <div id="cartModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">🛒 Shopping Cart</h3>
+                    <button class="modal-close" onclick="closeModal('cartModal')">&times;</button>
+                </div>
+                <div id="cartItems">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px solid #e5e7eb;">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-bottom: 1rem;">
+                        <span>Total:</span>
+                        <span id="cartTotal">$0.00</span>
+                    </div>
+                    <button class="btn btn-success btn-block" onclick="processPayment()">
+                        💳 Pay Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin View -->
+    <div id="adminView" style="display: none;">
+        <div class="container">
+            <!-- Owner Section -->
+            <div class="owner-section">
+                <div class="owner-name">👤 Owner: Olawale Abdul</div>
+                <div class="owner-title">Global Marketplace Administrator</div>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Wallet Balance</div>
+                            <div class="card-value" id="walletBalance">$0.00</div>
+                        </div>
+                        <div class="card-icon">💰</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Total Sales</div>
+                            <div class="card-value" id="totalSales">$0.00</div>
+                        </div>
+                        <div class="card-icon">📊</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Total Commission</div>
+                            <div class="card-value" id="totalCommission">$0.00</div>
+                        </div>
+                        <div class="card-icon">💵</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Total Withdrawals</div>
+                            <div class="card-value" id="totalWithdrawals">$0.00</div>
+                        </div>
+                        <div class="card-icon">🏦</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                <button class="btn btn-success" onclick="openModal('withdrawalModal')">
+                    💸 Withdraw Funds
+                </button>
+                <button class="btn btn-primary" onclick="syncProducts()">
+                    🔄 Sync Products
+                </button>
+                <button class="btn btn-primary" onclick="renderTransactions()">
+                    📋 Refresh Transactions
+                </button>
+                <button class="btn btn-danger" onclick="clearAllData()">
+                    🗑️ Clear All Data
+                </button>
+            </div>
+
+            <!-- Transactions Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">📋 Transaction History</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 0.85rem;" onclick="filterTransactions('all')">All</button>
+                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 0.85rem;" onclick="filterTransactions('sale')">Sales</button>
+                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.85rem;" onclick="filterTransactions('withdrawal')">Withdrawals</button>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Referral/Details</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionsBody">
+                        <!-- Transactions will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Terminal -->
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-title">🖥️ System Terminal - Customer Activity Log</span>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <span style="color: #10b981;">● Live</span>
+                        <span style="color: #6b7280;">VPN: Secure</span>
+                        <span style="color: #6b7280;">API: Active</span>
+                    </div>
+                </div>
+                <div id="terminalContent" class="terminal-content">
+                    <!-- Terminal logs will appear here -->
+                </div>
+            </div>
+
+            <!-- Admin Footer -->
+            <footer style="margin-top: 2rem; padding: 1.5rem; background: var(--dark-bg); color: var(--white); text-align: center; border-radius: 12px;">
+                <p><strong>Global Marketplace Admin Panel</strong></p>
+                <p style="margin-top: 0.5rem; color: #9ca3af;">Owner: Olawale Abdul | Bank: Global Pilgrim Bank</p>
+                <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.85rem;">© 2024 Global Marketplace. All rights reserved.</p>
+            </footer>
+        </div>
+
+        <!-- Withdrawal Modal -->
+        <div id="withdrawalModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">💸 Withdraw Funds</h3>
+                    <button class="modal-close" onclick="closeModal('withdrawalModal')">&times;</button>
+                </div>
+                <form onsubmit="event.preventDefault(); processWithdrawal();">
+                    <div class="form-group">
+                        <label class="form-label">Available Balance</label>
+                        <input type="text" class="form-control" id="availableBalance" readonly style="background: #f3f4f6; font-weight: bold;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Amount to Withdraw</label>
+                        <input type="number" id="withdrawalAmount" class="form-control" placeholder="Enter amount" step="0.01" min="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bank Name</label>
+                        <input type="text" class="form-control" value="Global Pilgrim Bank" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Account Number (10 digits)</label>
+                        <input type="text" id="accountNumber" class="form-control" placeholder="Enter 10-digit account number" maxlength="10" pattern="[0-9]{10}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Account Name</label>
+                        <input type="text" id="accountName" class="form-control" placeholder="Enter account holder name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Sender Name</label>
+                        <input type="text" class="form-control" value="Olawale Abdul" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Company Name</label>
+                        <input type="text" class="form-control" value="Global Marketplace" readonly>
+                    </div>
+                    <div style="background: #f0fdf4; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <p style="color: #166534; font-size: 0.9rem;">
+                            <strong>🔒 Security Info:</strong><br>
+                            • Payment Gateway API: Active<br>
+                            • VPN Connection: Secure<br>
+                            • Transfer Method: Encrypted
+                        </p>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block">
+                        💸 Process Withdrawal
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>
